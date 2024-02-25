@@ -30,25 +30,22 @@ def landing():
     return render_template('landing.html')
 @app.route('/index', methods=['GET', 'POST'])
 def index():
+    global FONT_COLOR
+    global TEMPLATE_PATH
     if request.method == 'POST':
         if 'file' not in request.files and 'logo' not in request.files:
             return render_template('index.html', error='No file part')
         
         hidden_value = request.form['template_index']
-        global TEMPLATE_PATH 
-        TEMPLATE_PATH = 'static/template'+hidden_value+'.png'
+        TEMPLATE_PATH = 'static/template' + hidden_value + '.png'
 
-        global FONT_COLOR
-        if hidden_value == 1:
-            FONT_COLOR = "#000000"
-        elif hidden_value == 5:
-            FONT_COLOR = "#000000"
-        elif hidden_value == 6:
-            FONT_COLOR = "#000000"
-        elif hidden_value == 7:
+        if hidden_value in ['1', '5', '6', '7']:
             FONT_COLOR = "#000000"
         else:
             FONT_COLOR = "#FFFFFF"
+
+        print(hidden_value)
+        print(FONT_COLOR)
 
 
         if 'file' in request.files:
